@@ -2,9 +2,8 @@
 
 namespace Donquixote\HastyReflectionCommon\Reflection\ClassLike\AllInterfaces;
 
-use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface;
-use Donquixote\HastyReflectionCommon\Reflection\ClassLike\OwnInterfaces\OwnInterfacesInterface;
 use Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassExtends\ClassExtendsInterface;
+use Donquixote\HastyReflectionCommon\Reflection\ClassLike\OwnInterfaces\OwnInterfacesInterface;
 
 class AllInterfaces_FromOwn extends AllInterfacesBase {
 
