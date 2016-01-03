@@ -20,6 +20,11 @@ abstract class OwnBodyBase implements OwnBodyInterface {
   private $methodsNotFound = array();
 
   /**
+   * @var bool|null
+   */
+  private $hasOwnMethods;
+
+  /**
    * @param string $name
    *
    * @return null|\Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface
@@ -58,6 +63,15 @@ abstract class OwnBodyBase implements OwnBodyInterface {
   }
 
   /**
+   * @return bool
+   */
+  function hasOwnMethods() {
+    return NULL !== $this->hasOwnMethods
+      ? $this->hasOwnMethods
+      : $this->hasOwnMethods = $this->calcHasOwnMethods();
+  }
+
+  /**
    * @param string $name
    *
    * @return null|\Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface
@@ -68,4 +82,9 @@ abstract class OwnBodyBase implements OwnBodyInterface {
    * @return \Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface[]
    */
   abstract protected function findOwnMethods();
+
+  /**
+   * @return bool
+   */
+  abstract protected function calcHasOwnMethods();
 }

@@ -20,8 +20,18 @@ class ClassIndexTest extends \PHPUnit_Framework_TestCase {
     $classReflection = $classIndex->classGetReflection($class);
     $reflectionClass = new \ReflectionClass($class);
 
-    // Test name.
+    // Test identity.
+    $this->assertTrue($classReflection === $classIndex->classGetReflection($class));
+
+    // Test class type/info.
+    $expectedIsClass = !$reflectionClass->isInterface() && !$reflectionClass->isTrait();
     $this->assertEquals($reflectionClass->getName(), $classReflection->getName());
+    $this->assertEquals($reflectionClass->getDocComment(), $classReflection->getDocComment());
+    $this->assertEquals($reflectionClass->isInterface(), $classReflection->isInterface());
+    $this->assertEquals($reflectionClass->isTrait(), $classReflection->isTrait());
+    $this->assertEquals($expectedIsClass, $classReflection->isClass());
+    $this->assertEquals($reflectionClass->isAbstract(), $classReflection->isAbstract());
+    $this->assertEquals($reflectionClass->isAbstract() && $expectedIsClass, $classReflection->isAbstractClass());
 
     // Test context.
     $this->assertEquals($reflectionClass->getNamespaceName(), $classReflection->getNamespaceUseContext()->getNamespaceName());

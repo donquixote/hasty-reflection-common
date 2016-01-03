@@ -10,10 +10,16 @@ class ClassLikeHeader_Native implements ClassLikeHeaderInterface {
   private $reflectionClass;
 
   /**
+   * @var bool
+   */
+  private $isClass;
+
+  /**
    * @param \ReflectionClass $reflectionClass
    */
   function __construct(\ReflectionClass $reflectionClass) {
     $this->reflectionClass = $reflectionClass;
+    $this->isClass = !$reflectionClass->isInterface() && !$reflectionClass->isTrait();
   }
 
   /**
@@ -54,8 +60,8 @@ class ClassLikeHeader_Native implements ClassLikeHeaderInterface {
   /**
    * @return bool
    */
-  function isAbstract() {
-    return $this->reflectionClass->isAbstract();
+  function isAbstractClass() {
+    return $this->isClass && $this->reflectionClass->isAbstract();
   }
 
   /**

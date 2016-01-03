@@ -22,7 +22,7 @@ interface ClassLikeHeaderInterface {
   /**
    * @return bool
    */
-  function isAbstract();
+  function isAbstractClass();
 
   /**
    * @return bool

@@ -45,4 +45,17 @@ class ClassLikeBody_Composite implements ClassLikeBodyInterface {
     $this->completeBody = $completeBody;
   }
 
+  /**
+   * @return bool
+   */
+  function hasMethods() {
+    return $this->completeBody->hasMethods();
+  }
+
+  /**
+   * @return bool
+   */
+  function hasOwnMethods() {
+    return $this->ownBody->hasOwnMethods();
+  }
 }

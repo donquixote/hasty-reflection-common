@@ -71,4 +71,24 @@ class CompleteBody_FromOwn extends CompleteBodyBase {
     }
     return $methods;
   }
+
+  /**
+   * @return bool
+   */
+  protected function calcHasMethods() {
+    if ($this->ownBody->hasOwnMethods()) {
+      return TRUE;
+    }
+    if (NULL !== $parentClass = $this->extends->getParentClass()) {
+      if ($parentClass->hasMethods()) {
+        return TRUE;
+      }
+    }
+    foreach ($this->interfacesAll->getAllInterfaces(FALSE) as $interface) {
+      if ($interface->hasMethods()) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
 }

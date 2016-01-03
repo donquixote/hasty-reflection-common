@@ -9,4 +9,11 @@ use Donquixote\HastyReflectionCommon\Reflection\DeclarationInterface;
 
 interface ClassLikeReflectionInterface extends DeclarationInterface, ClassLikeHeaderInterface, InheritanceInterface, ClassLikeBodyInterface {
 
+  /**
+   * The equivalent of @see \ReflectionClass::isAbstract()
+   *
+   * @return bool
+   */
+  function isAbstract();
+
 }

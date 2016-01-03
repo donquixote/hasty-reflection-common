@@ -50,4 +50,11 @@ class OwnBody_FromComplete extends OwnBodyBase {
     }
     return $methods;
   }
+
+  /**
+   * @return bool
+   */
+  protected function calcHasOwnMethods() {
+    return array() !== $this->getOwnMethods();
+  }
 }

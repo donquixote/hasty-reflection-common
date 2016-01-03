@@ -53,12 +53,26 @@ class OwnBody_Native extends OwnBodyBase {
     if (NULL === $classReflection) {
       return array();
     }
+    $class = $this->reflectionClass->getName();
     $methods = array();
     foreach ($this->reflectionClass->getMethods() as $reflectionMethod) {
-      if ($this->reflectionClass->getName() === $reflectionMethod->getDeclaringClass()->getName()) {
+      if ($class === $reflectionMethod->getDeclaringClass()->getName()) {
         $methods[$reflectionMethod->getName()] = new MethodReflection_Native($classReflection, $reflectionMethod);
       }
     }
     return $methods;
+  }
+
+  /**
+   * @return bool
+   */
+  protected function calcHasOwnMethods() {
+    $class = $this->reflectionClass->getName();
+    foreach ($this->reflectionClass->getMethods() as $reflectionMethod) {
+      if ($class === $reflectionMethod->getDeclaringClass()->getName()) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 }

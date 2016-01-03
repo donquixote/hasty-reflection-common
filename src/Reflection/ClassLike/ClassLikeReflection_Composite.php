@@ -87,8 +87,8 @@ class ClassLikeReflection_Composite extends Inheritance_Composite implements Cla
   /**
    * @return bool
    */
-  function isAbstract() {
-    return $this->header->isAbstract();
+  function isAbstractClass() {
+    return $this->header->isAbstractClass();
   }
 
   /**
@@ -142,5 +142,37 @@ class ClassLikeReflection_Composite extends Inheritance_Composite implements Cla
    */
   function getOwnMethods() {
     return $this->body->getOwnMethods();
+  }
+
+  /**
+   * The equivalent of @see \ReflectionClass::isAbstract()
+   *
+   * @return bool
+   */
+  function isAbstract() {
+    if ($this->header->isAbstractClass()) {
+      return TRUE;
+    }
+    if ($this->header->isTrait()) {
+      return TRUE;
+    }
+    if ($this->header->isInterface()) {
+      return $this->body->hasMethods();
+    }
+    return FALSE;
+  }
+
+  /**
+   * @return bool
+   */
+  function hasMethods() {
+    return $this->body->hasMethods();
+  }
+
+  /**
+   * @return bool
+   */
+  function hasOwnMethods() {
+    return $this->body->hasOwnMethods();
   }
 }

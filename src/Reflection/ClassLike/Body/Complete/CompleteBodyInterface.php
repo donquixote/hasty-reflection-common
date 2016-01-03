@@ -16,4 +16,9 @@ interface CompleteBodyInterface {
    */
   function getMethods();
 
+  /**
+   * @return bool
+   */
+  function hasMethods();
+
 }

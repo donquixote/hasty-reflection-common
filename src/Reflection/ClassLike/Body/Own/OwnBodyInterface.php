@@ -16,4 +16,9 @@ interface OwnBodyInterface {
    */
   function getOwnMethods();
 
+  /**
+   * @return bool
+   */
+  function hasOwnMethods();
+
 }

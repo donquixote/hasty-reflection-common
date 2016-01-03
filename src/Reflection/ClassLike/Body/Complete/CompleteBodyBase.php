@@ -20,6 +20,11 @@ abstract class CompleteBodyBase implements CompleteBodyInterface {
   private $methodsNotFound = array();
 
   /**
+   * @var bool|null
+   */
+  private $hasMethods;
+
+  /**
    * @param string $name
    *
    * @return null|\Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface
@@ -62,6 +67,15 @@ abstract class CompleteBodyBase implements CompleteBodyInterface {
   }
 
   /**
+   * @return bool
+   */
+  function hasMethods() {
+    return NULL !== $this->hasMethods
+      ? $this->hasMethods
+      : $this->hasMethods = $this->calcHasMethods();
+  }
+
+  /**
    * @param string $name
    *
    * @return null|\Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface
@@ -72,4 +86,9 @@ abstract class CompleteBodyBase implements CompleteBodyInterface {
    * @return \Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface[]
    */
   abstract protected function findMethods();
+
+  /**
+   * @return bool
+   */
+  abstract protected function calcHasMethods();
 }
