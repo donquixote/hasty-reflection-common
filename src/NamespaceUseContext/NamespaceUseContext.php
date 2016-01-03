@@ -10,7 +10,7 @@ class NamespaceUseContext implements NamespaceUseContextInterface {
   private $namespaceName;
 
   /**
-   * @var array|\Donquixote\HastyCommon\Name\FqcnInterface[]
+   * @var array|\Donquixote\HastyPhpAst\Name\FqcnInterface[]
    */
   private $namesByAlias;
 

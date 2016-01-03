@@ -2,9 +2,8 @@
 
 namespace Donquixote\HastyReflectionCommon\Canvas\ClassIndex;
 
-use Donquixote\HastyReflectionCommon\ClassLoader\ClassLoaderInterface;
 use Donquixote\HastyReflectionCommon\Canvas\File\FileIndexInterface;
-use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndex_SemiNative;
+use Donquixote\HastyReflectionCommon\ClassLoader\ClassLoaderInterface;
 
 class ClassIndex_Loader extends ClassIndex_SemiNative {
 

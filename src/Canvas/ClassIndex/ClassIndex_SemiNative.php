@@ -2,7 +2,6 @@
 
 namespace Donquixote\HastyReflectionCommon\Canvas\ClassIndex;
 
-use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndex_IncludeBase;
 use Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflection_Native;
 
 class ClassIndex_SemiNative extends ClassIndex_IncludeBase {
