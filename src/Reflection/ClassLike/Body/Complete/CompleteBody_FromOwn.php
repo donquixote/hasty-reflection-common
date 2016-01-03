@@ -48,7 +48,7 @@ class CompleteBody_FromOwn extends CompleteBodyBase {
         return $method;
       }
     }
-    foreach ($this->interfacesAll->getAllInterfaces() as $interface) {
+    foreach ($this->interfacesAll->getAllInterfaces(FALSE) as $interface) {
       $method = $interface->getOwnMethod($name);
       if (FALSE !== $method) {
         return $method;
@@ -64,9 +64,9 @@ class CompleteBody_FromOwn extends CompleteBodyBase {
     $methods = $this->ownBody->getOwnMethods();
     $parentClass = $this->extends->getParentClass();
     if (NULL !== $parentClass) {
-      $methods += $parentClass->getOwnMethods();
+      $methods += $parentClass->getMethods();
     }
-    foreach ($this->interfacesAll->getAllInterfaces() as $interface) {
+    foreach ($this->interfacesAll->getAllInterfaces(FALSE) as $interface) {
       $methods += $interface->getOwnMethods();
     }
     return $methods;

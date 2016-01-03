@@ -48,19 +48,23 @@ class Inheritance_Composite implements InheritanceInterface {
    *
    * Will include the class itself if it is an interface.
    *
+   * @param bool $includeSelf
+   *   If TRUE, and the class is an interface, it will be included in the result.
+   *
    * @return \Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface[]
    */
-  function getAllInterfaces() {
-    return $this->interfacesAll->getAllInterfaces();
+  function getAllInterfaces($includeSelf) {
+    return $this->interfacesAll->getAllInterfaces($includeSelf);
   }
 
   /**
    * @param string $interfaceName
+   * @param bool $includeSelf
    *
    * @return bool
    */
-  function extendsOrImplementsInterface($interfaceName) {
-    return $this->interfacesAll->extendsOrImplementsInterface($interfaceName);
+  function extendsOrImplementsInterface($interfaceName, $includeSelf) {
+    return $this->interfacesAll->extendsOrImplementsInterface($interfaceName, $includeSelf);
   }
 
   /**

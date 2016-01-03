@@ -10,7 +10,7 @@ class NamespaceUseContext implements NamespaceUseContextInterface {
   private $namespaceName;
 
   /**
-   * @var array|\Donquixote\HastyPhpAst\Name\FqcnInterface[]
+   * @var string[]
    */
   private $namesByAlias;
 
@@ -40,7 +40,7 @@ class NamespaceUseContext implements NamespaceUseContextInterface {
       return substr($nameOrAlias, 1);
     }
     elseif (array_key_exists($nameOrAlias, $this->namesByAlias)) {
-      return $this->namesByAlias[$nameOrAlias]->getQualifiedName();
+      return $this->namesByAlias[$nameOrAlias];
     }
     elseif (NULL !== $this->namespaceName) {
       return $this->namespaceName . '\\' . $nameOrAlias;

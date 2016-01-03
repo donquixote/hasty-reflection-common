@@ -28,12 +28,12 @@ class AllInterfaces_FromNames extends AllInterfacesBase {
   /**
    * @return \Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface[]
    */
-  protected function buildAllInterfaces() {
+  protected function buildAllInterfacesWithoutSelf() {
     $interfaces = array();
-    foreach ($this->allInterfaceNames as $qcn) {
-      $interface = $this->autoloadSource->classGetReflection($qcn);
+    foreach ($this->allInterfaceNames as $interfaceName) {
+      $interface = $this->autoloadSource->classGetReflection($interfaceName);
       if ($interface && $interface->isInterface()) {
-        $interfaces[$qcn] = $interface;
+        $interfaces[$interfaceName] = $interface;
       }
     }
     return $interfaces;

@@ -5,12 +5,8 @@ namespace Donquixote\HastyReflectionCommon\Tests;
 use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndex_Native;
 use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndex_SemiNative;
 use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface;
-use Donquixote\HastyReflectionCommon\Canvas\File\FileIndex_PhpToReflection;
-use Donquixote\HastyReflectionCommon\ClassLoader\ClassLoader_Composer;
-use Donquixote\HastyReflectionCommon\ClassLoader\ClassLoader_Native;
 use Donquixote\HastyReflectionCommon\Reflection\ClassLike\Body\Own\OwnBody_DecoratorTrait;
 use Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface;
-use Donquixote\HastyReflectionParser\ClassIndex\ClassIndex_Ast;
 
 class ClassIndexTest extends \PHPUnit_Framework_TestCase {
 
@@ -34,31 +30,27 @@ class ClassIndexTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($reflectionClass->getInterfaceNames(), array_keys($classReflection->getOwnInterfaces()));
 
     foreach ($reflectionClass->getInterfaceNames() as $interfaceName) {
-      $this->assertEquals(TRUE, $classReflection->extendsOrImplementsInterface($interfaceName));
+      $this->assertEquals(TRUE, $classReflection->extendsOrImplementsInterface($interfaceName, FALSE));
     }
 
     $expectedInterfaceNames = $reflectionClass->getInterfaceNames();
     if ($reflectionClass->isInterface()) {
       array_unshift($expectedInterfaceNames, $class);
     }
-    $this->assertEquals($expectedInterfaceNames, array_keys($classReflection->getAllInterfaces()));
+    $this->assertEquals($expectedInterfaceNames, array_keys($classReflection->getAllInterfaces(FALSE)));
   }
 
   /**
    * @return array[]
    */
   function provideClassIndexArgs() {
-    $list = array();
-    $composerClassLoader = include dirname(dirname(__DIR__)) . '/vendor/composer/autoload.php';
     $classes = array(
       ClassIndex_SemiNative::class,
       ClassLikeReflectionInterface::class,
       OwnBody_DecoratorTrait::class
     );
+    $list = array();
     foreach (array(
-      ClassIndex_Ast::createWithClassLoader(new ClassLoader_Composer($composerClassLoader)),
-      ClassIndex_Ast::createWithClassLoader(new ClassLoader_Native()),
-      ClassIndex_Ast::createSemiNative(),
       new ClassIndex_Native(),
     ) as $classIndex) {
       foreach ($classes as $class) {

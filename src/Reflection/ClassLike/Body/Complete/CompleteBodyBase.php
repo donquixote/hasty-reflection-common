@@ -51,7 +51,11 @@ abstract class CompleteBodyBase implements CompleteBodyInterface {
       return $this->methods;
     }
     else {
-      $this->methods += $this->findMethods();
+      $knownMethods = $this->methods;
+      $this->methods = $this->findMethods();
+      foreach ($knownMethods as $methodName => $knownMethod) {
+        $this->methods[$methodName] = $knownMethod;
+      }
       $this->methodsComplete = TRUE;
       return $this->methods;
     }

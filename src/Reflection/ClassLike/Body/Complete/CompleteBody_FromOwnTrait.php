@@ -36,11 +36,11 @@ trait CompleteBody_FromOwnTrait {
       return $method;
     }
     if (NULL !== $parentClass = $this->extends->getParentClass()) {
-      if ($method = $this->extends->getParentClass()->getOwnMethod($name)) {
+      if ($method = $this->extends->getParentClass()->getMethod($name)) {
         return $method;
       }
     }
-    foreach ($this->interfacesAll->getAllInterfaces() as $interface) {
+    foreach ($this->interfacesAll->getAllInterfaces(FALSE) as $interface) {
       $method = $interface->getOwnMethod($name);
       if (FALSE !== $method) {
         return $method;
@@ -56,9 +56,9 @@ trait CompleteBody_FromOwnTrait {
     $methods = $this->getOwnMethods();
     $parentClass = $this->extends->getParentClass();
     if (NULL !== $parentClass) {
-      $methods += $parentClass->getOwnMethods();
+      $methods += $parentClass->getMethods();
     }
-    foreach ($this->interfacesAll->getAllInterfaces() as $interface) {
+    foreach ($this->interfacesAll->getAllInterfaces(FALSE) as $interface) {
       $methods += $interface->getOwnMethods();
     }
     return $methods;

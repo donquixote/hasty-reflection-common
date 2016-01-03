@@ -41,10 +41,6 @@ class OwnInterfaces_FromAll implements OwnInterfacesInterface {
    * @return \Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface[]
    */
   function getOwnInterfaces() {
-    $interfaces = $this->allInterfaces->getAllInterfaces();
-    if (NULL !== $this->selfInterfaceName) {
-      unset($interfaces[$this->selfInterfaceName]);
-    }
-    return $interfaces;
+    return $this->allInterfaces->getAllInterfaces(FALSE);
   }
 }
