@@ -1,0 +1,24 @@
+{
+  "name": "donquixote/hasty-reflection-common",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andreas Hennings",
+      "email": "andreas@dqxtech.net"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Donquixote\\HastyReflectionCommon\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Donquixote\\HastyReflectionCommon\\Tests\\": "tests/src"
+    }
+  },
+  "require": {
+    "php": ">=5.5.0"
+  }
+}
