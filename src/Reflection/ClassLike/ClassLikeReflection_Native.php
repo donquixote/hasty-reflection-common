@@ -45,10 +45,10 @@ final class ClassLikeReflection_Native extends UtilBase {
 
     $ownInterfaceNames = $reflectionClass->getInterfaceNames();
     $allInterfaceNames = $ownInterfaceNames;
-    if ($reflectionClass->isInterface()) {
-      array_unshift($allInterfaceNames, $name);
-    }
     $interfacesAll = new AllInterfaces_FromNames($classIndex, $allInterfaceNames);
+    if ($reflectionClass->isInterface()) {
+      $interfacesAll = $interfacesAll->withSelfInterfaceName($name, $classIndex);
+    }
     $ownInterfaces = new OwnInterfaces_FromNames($classIndex, $ownInterfaceNames);
 
     $ownBody = new OwnBody_Native($reflectionClass, $classIndex);

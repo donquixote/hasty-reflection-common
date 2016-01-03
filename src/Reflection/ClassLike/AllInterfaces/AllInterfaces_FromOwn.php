@@ -19,26 +19,12 @@ class AllInterfaces_FromOwn extends AllInterfacesBase {
   private $ownInterfaces;
 
   /**
-   * @var string|null
-   */
-  private $selfInterfaceName;
-
-  /**
-   * @var \Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface
-   */
-  private $classIndex;
-
-  /**
    * @param \Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassExtends\ClassExtendsInterface $extends
    * @param \Donquixote\HastyReflectionCommon\Reflection\ClassLike\OwnInterfaces\OwnInterfacesInterface $ownInterfaces
-   * @param string|null $interfaceSelf
-   * @param \Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface $classIndex
    */
-  function __construct(ClassExtendsInterface $extends, OwnInterfacesInterface $ownInterfaces, $interfaceSelf = NULL, ClassIndexInterface $classIndex) {
+  function __construct(ClassExtendsInterface $extends, OwnInterfacesInterface $ownInterfaces) {
     $this->extends = $extends;
     $this->ownInterfaces = $ownInterfaces;
-    $this->selfInterfaceName = $interfaceSelf;
-    $this->classIndex = $classIndex;
   }
 
   /**
@@ -48,12 +34,6 @@ class AllInterfaces_FromOwn extends AllInterfacesBase {
     $interfaces = $this->ownInterfaces->getOwnInterfaces();
     foreach ($interfaces as $interface) {
       $interfaces += $interface->getAllInterfaces(FALSE);
-    }
-    if (NULL !== $this->selfInterfaceName) {
-      $selfInterface = $this->classIndex->classGetReflection($this->selfInterfaceName);
-      if (NULL !== $selfInterface) {
-        $interfaces = array($this->selfInterfaceName => $selfInterface) + $interfaces;
-      }
     }
     if ($parentClass = $this->extends->getParentClass()) {
       $interfaces += $parentClass->getAllInterfaces(FALSE);

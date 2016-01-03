@@ -14,15 +14,15 @@ class AllInterfaces_FromNames extends AllInterfacesBase {
   /**
    * @var string[]
    */
-  private $allInterfaceNames;
+  private $allInterfaceNamesWithoutSelf;
 
   /**
    * @param \Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface $autoloadSource
-   * @param string[] $allInterfaceNames
+   * @param string[] $allInterfaceNamesWithoutSelf
    */
-  function __construct(ClassIndexInterface $autoloadSource, array $allInterfaceNames) {
+  function __construct(ClassIndexInterface $autoloadSource, array $allInterfaceNamesWithoutSelf) {
     $this->autoloadSource = $autoloadSource;
-    $this->allInterfaceNames = $allInterfaceNames;
+    $this->allInterfaceNamesWithoutSelf = $allInterfaceNamesWithoutSelf;
   }
 
   /**
@@ -30,7 +30,7 @@ class AllInterfaces_FromNames extends AllInterfacesBase {
    */
   protected function buildAllInterfacesWithoutSelf() {
     $interfaces = array();
-    foreach ($this->allInterfaceNames as $interfaceName) {
+    foreach ($this->allInterfaceNamesWithoutSelf as $interfaceName) {
       $interface = $this->autoloadSource->classGetReflection($interfaceName);
       if ($interface && $interface->isInterface()) {
         $interfaces[$interfaceName] = $interface;

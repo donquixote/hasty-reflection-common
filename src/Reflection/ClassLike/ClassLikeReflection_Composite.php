@@ -166,13 +166,27 @@ class ClassLikeReflection_Composite extends Inheritance_Composite implements Cla
    * @return bool
    */
   function hasMethods() {
-    return $this->body->hasMethods();
+    static $level = 0;
+    if ($level > 4) {
+      die($this->getName());
+    }
+    ++$level;
+    $hasOwnMethods = $this->body->hasMethods();
+    --$level;
+    return $hasOwnMethods;
   }
 
   /**
    * @return bool
    */
   function hasOwnMethods() {
-    return $this->body->hasOwnMethods();
+    static $level = 0;
+    if ($level > 4) {
+      die($this->getName());
+    }
+    ++$level;
+    $hasOwnMethods = $this->body->hasOwnMethods();
+    --$level;
+    return $hasOwnMethods;
   }
 }

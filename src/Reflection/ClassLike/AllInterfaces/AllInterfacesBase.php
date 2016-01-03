@@ -2,12 +2,19 @@
 
 namespace Donquixote\HastyReflectionCommon\Reflection\ClassLike\AllInterfaces;
 
+use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface;
+
 abstract class AllInterfacesBase implements AllInterfacesInterface {
 
   /**
    * @var string|null
    */
   private $selfInterfaceName;
+
+  /**
+   * @var \Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface|null
+   */
+  private $classIndex;
 
   /**
    * @var \Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface[]|null
@@ -17,16 +24,18 @@ abstract class AllInterfacesBase implements AllInterfacesInterface {
   /**
    * @var \Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface[]|null
    */
-  private $selfInterfacesAll;
+  private $interfacesAllInclSelf;
 
   /**
    * @param string $selfInterfaceName
+   * @param \Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface $classIndex
    *
    * @return \Donquixote\HastyReflectionCommon\Reflection\ClassLike\AllInterfaces\AllInterfacesInterface
    */
-  function withSelfInterfaceName($selfInterfaceName) {
+  function withSelfInterfaceName($selfInterfaceName, ClassIndexInterface $classIndex) {
     $clone = clone $this;
     $clone->selfInterfaceName = $selfInterfaceName;
+    $clone->classIndex = $classIndex;
     return $clone;
   }
 
@@ -41,13 +50,16 @@ abstract class AllInterfacesBase implements AllInterfacesInterface {
    */
   function getAllInterfaces($includeSelf) {
     if (NULL === $this->interfacesAll) {
-      $this->selfInterfacesAll = $this->interfacesAll = $this->buildAllInterfacesWithoutSelf();
+      $this->interfacesAllInclSelf = $this->interfacesAll = $this->buildAllInterfacesWithoutSelf();
       if (NULL !== $this->selfInterfaceName) {
-        array_unshift($this->selfInterfacesAll, $this->selfInterfaceName);
+        $selfInterface = $this->classIndex->classGetReflection($this->selfInterfaceName);
+        if (NULL !== $selfInterface) {
+          $this->interfacesAllInclSelf = array($this->selfInterfaceName => $selfInterface) + $this->interfacesAllInclSelf;
+        }
       }
     }
     return $includeSelf
-      ? $this->selfInterfacesAll
+      ? $this->interfacesAllInclSelf
       : $this->interfacesAll;
   }
 
