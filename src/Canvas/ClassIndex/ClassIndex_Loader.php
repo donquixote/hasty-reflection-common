@@ -13,11 +13,11 @@ class ClassIndex_Loader extends ClassIndex_SemiNative {
   private $classLoader;
 
   /**
-   * @param \Donquixote\HastyReflectionCommon\Canvas\File\FileIndexInterface $fileIncludeCanvas
+   * @param \Donquixote\HastyReflectionCommon\Canvas\File\FileIndexInterface $fileIndex
    * @param \Donquixote\HastyReflectionCommon\ClassLoader\ClassLoaderInterface $classLoader
    */
-  function __construct(FileIndexInterface $fileIncludeCanvas, ClassLoaderInterface $classLoader) {
-    parent::__construct($fileIncludeCanvas);
+  function __construct(FileIndexInterface $fileIndex, ClassLoaderInterface $classLoader) {
+    parent::__construct($fileIndex);
     $this->classLoader = $classLoader;
   }
 

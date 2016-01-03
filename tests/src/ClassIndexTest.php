@@ -5,10 +5,14 @@ namespace Donquixote\HastyReflectionCommon\Tests;
 use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndex_Native;
 use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndex_SemiNative;
 use Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface;
+use Donquixote\HastyReflectionCommon\Canvas\File\FileIndex_PhpToReflection;
+use Donquixote\HastyReflectionCommon\ClassLoader\ClassLoader_Composer;
+use Donquixote\HastyReflectionCommon\ClassLoader\ClassLoader_Native;
 use Donquixote\HastyReflectionCommon\Reflection\ClassLike\Body\Own\OwnBody_DecoratorTrait;
 use Donquixote\HastyReflectionCommon\Reflection\ClassLike\ClassLikeReflectionInterface;
+use Donquixote\HastyReflectionParser\ClassIndex\ClassIndex_Ast;
 
-class NativeClassIndexTest extends \PHPUnit_Framework_TestCase {
+class ClassIndexTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @param \Donquixote\HastyReflectionCommon\Canvas\ClassIndex\ClassIndexInterface $classIndex
@@ -45,12 +49,18 @@ class NativeClassIndexTest extends \PHPUnit_Framework_TestCase {
    */
   function provideClassIndexArgs() {
     $list = array();
+    $composerClassLoader = include dirname(dirname(__DIR__)) . '/vendor/composer/autoload.php';
     $classes = array(
       ClassIndex_SemiNative::class,
       ClassLikeReflectionInterface::class,
       OwnBody_DecoratorTrait::class
     );
-    foreach (array(new ClassIndex_Native()) as $classIndex) {
+    foreach (array(
+      ClassIndex_Ast::createWithClassLoader(new ClassLoader_Composer($composerClassLoader)),
+      ClassIndex_Ast::createWithClassLoader(new ClassLoader_Native()),
+      ClassIndex_Ast::createSemiNative(),
+      new ClassIndex_Native(),
+    ) as $classIndex) {
       foreach ($classes as $class) {
         $list[] = array($classIndex, $class);
       }

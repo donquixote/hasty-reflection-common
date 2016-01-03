@@ -10,20 +10,20 @@ abstract class ClassIndex_IncludeBase extends ClassIndexBase implements ClassLoa
   /**
    * @var \Donquixote\HastyReflectionCommon\Canvas\File\FileIndexInterface
    */
-  private $fileIncludeCanvas;
+  private $fileIndex;
 
   /**
-   * @param \Donquixote\HastyReflectionCommon\Canvas\File\FileIndexInterface $fileIncludeCanvas
+   * @param \Donquixote\HastyReflectionCommon\Canvas\File\FileIndexInterface $fileIndex
    */
-  function __construct(FileIndexInterface $fileIncludeCanvas) {
-    $this->fileIncludeCanvas = $fileIncludeCanvas;
+  function __construct(FileIndexInterface $fileIndex) {
+    $this->fileIndex = $fileIndex;
   }
 
   /**
    * @param string $file
    */
   function includeOnce($file) {
-    $fileReflection = $this->fileIncludeCanvas->fileGetReflection($file, $this);
+    $fileReflection = $this->fileIndex->fileGetReflection($file, $this);
     foreach ($fileReflection->getClassLikesByQcn() as $name => $classLikeReflection) {
       $this->registerClassLikeReflection($name, $classLikeReflection);
     }
