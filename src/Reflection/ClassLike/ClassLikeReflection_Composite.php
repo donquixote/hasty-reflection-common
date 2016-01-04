@@ -106,6 +106,13 @@ class ClassLikeReflection_Composite extends Inheritance_Composite implements Cla
   }
 
   /**
+   * @return string
+   */
+  function getShortName() {
+    return $this->header->getShortName();
+  }
+
+  /**
    * @return null|\Donquixote\HastyReflectionCommon\Reflection\FunctionLike\MethodReflectionInterface
    */
   function getConstructor() {

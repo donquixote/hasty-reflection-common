@@ -34,4 +34,9 @@ interface ClassLikeHeaderInterface {
    */
   function getName();
 
+  /**
+   * @return string
+   */
+  function getShortName();
+
 }

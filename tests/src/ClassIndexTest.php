@@ -29,6 +29,7 @@ class ClassIndexTest extends \PHPUnit_Framework_TestCase {
     // Test class type/info.
     $expectedIsClass = !$reflectionClass->isInterface() && !$reflectionClass->isTrait();
     $this->assertEquals($reflectionClass->getName(), $classReflection->getName());
+    $this->assertEquals($reflectionClass->getShortName(), $classReflection->getShortName());
     $this->assertEquals($reflectionClass->getDocComment(), $classReflection->getDocComment());
     $this->assertEquals($reflectionClass->isInterface(), $classReflection->isInterface());
     $this->assertEquals($reflectionClass->isTrait(), $classReflection->isTrait());

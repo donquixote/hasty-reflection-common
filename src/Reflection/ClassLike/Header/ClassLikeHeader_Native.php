@@ -30,6 +30,13 @@ class ClassLikeHeader_Native implements ClassLikeHeaderInterface {
   }
 
   /**
+   * @return string
+   */
+  function getShortName() {
+    return $this->reflectionClass->getShortName();
+  }
+
+  /**
    * @return string|null
    */
   function getDocComment() {
